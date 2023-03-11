@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.seisekulov.whackamole.ui.StartFragment"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_startFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.seisekulov.whackamole.ui.GameFragment"
+        tools:layout="@layout/fragment_game">
+        <action
+            android:id="@+id/action_gameFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.seisekulov.whackamole.ui.ResultFragment"
+        tools:layout="@layout/fragment_result">
+        <argument
+            android:name="score"
+            app:argType="integer"
+            />
+        <action
+            android:id="@+id/action_resultFragment_to_startFragment"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+</navigation>

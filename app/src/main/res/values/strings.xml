@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WhackAMole</string>
+    <string name="empty">-</string>
+    <string name="time">Time: 00:%1$s</string>
+    <string name="bestScore">Best score:</string>
+    <string name="play">Play</string>
+    <string name="score">Score: %1$s</string>
+    <string name="scoreTitle">Score:</string>
+</resources>
