@@ -6,4 +6,9 @@
     <string name="play">Play</string>
     <string name="score">Score: %1$s</string>
     <string name="scoreTitle">Score:</string>
+    <string name="hard">Hard</string>
+    <string name="medium">Medium</string>
+    <string name="eazy">Eazy</string>
+    <string name="play_again">Play again</string>
+    <string name="menu">Menu</string>
 </resources>

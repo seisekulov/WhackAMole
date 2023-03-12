@@ -13,6 +13,7 @@ import android.widget.TableRow
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.seisekulov.whackamole.R
 import com.seisekulov.whackamole.databinding.FragmentGameBinding
@@ -23,6 +24,7 @@ import kotlin.random.Random
 class GameFragment : Fragment(R.layout.fragment_game) {
     private val viewModel by viewModels<GameViewModel>()
     private val viewBinding by viewBinding(FragmentGameBinding::bind)
+    private val navArgs : GameFragmentArgs by navArgs()
 
     private lateinit var timer: CountDownTimer
     private var score = 0
@@ -31,9 +33,9 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding.timer.text = getString(R.string.time, String.format("%02d", 30))
+        viewBinding.timer.text = getString(R.string.time, String.format("%02d", DURATION / INTERVAL))
 
-        timer = object : CountDownTimer(30000, 1000) {
+        timer = object : CountDownTimer(DURATION, navArgs.levelValue) {
 
             override fun onTick(millisUntilFinished: Long) {
                 setGameView(millisUntilFinished)
@@ -45,8 +47,8 @@ class GameFragment : Fragment(R.layout.fragment_game) {
             }
         }.start()
 
-        viewModel.bestScore.observe(viewLifecycleOwner){
-            viewBinding.score.text =it.toString()
+        viewModel.bestScore.observe(viewLifecycleOwner) {
+            viewBinding.score.text = it.toString()
         }
     }
 
@@ -118,6 +120,8 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     }
 
     companion object {
+        const val DURATION: Long = 30000
+        const val INTERVAL: Long = 1000
         const val HOLE_ROWS = 3
         const val HOLE_COLUMNS = 3
     }
