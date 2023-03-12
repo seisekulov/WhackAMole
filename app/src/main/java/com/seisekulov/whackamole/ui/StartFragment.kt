@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class StartFragment : Fragment(R.layout.fragment_start) {
     private val viewModel by viewModels<StartViewModel>()
     private val viewBinding by viewBinding(FragmentStartBinding::bind)
-    private var levelValue: Long = 0
+    private var levelValue: Long = 750
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -11,4 +11,5 @@
     <string name="eazy">Eazy</string>
     <string name="play_again">Play again</string>
     <string name="menu">Menu</string>
+    <string name="choose_level">Choose level</string>
 </resources>

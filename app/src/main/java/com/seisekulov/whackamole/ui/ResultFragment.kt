@@ -17,6 +17,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
     private val viewModel by viewModels<ResultViewModel>()
     private val viewBinding by viewBinding(FragmentResultBinding::bind)
     private val navArgs: ResultFragmentArgs by navArgs()
+    private var levelValue: Long = 750
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,10 +27,15 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
             viewBinding.bestScore.text=it.toString()
         }
 
+        viewBinding.rbEazy.setOnClickListener { levelValue = 1000 }
+        viewBinding.rbMedium.setOnClickListener { levelValue = 750 }
+        viewBinding.rbHard.setOnClickListener { levelValue = 500 }
+
         viewBinding.menuButton.setOnClickListener {
             findNavController().popBackStack(R.id.startFragment,true)
             findNavController().navigate(R.id.startFragment) }
-        viewBinding.playAgainButton.setOnClickListener { findNavController().navigate(R.id.gameFragment)
+        viewBinding.playAgainButton.setOnClickListener {
+            findNavController().navigate(ResultFragmentDirections.actionResultFragmentToGameFragment(levelValue))
        }
     }
 }

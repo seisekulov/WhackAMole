@@ -12,6 +12,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,21 +22,25 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
 @AndroidEntryPoint
-class GameFragment : Fragment(R.layout.fragment_game) {
+class GameFragment() : Fragment(R.layout.fragment_game) {
     private val viewModel by viewModels<GameViewModel>()
     private val viewBinding by viewBinding(FragmentGameBinding::bind)
     private val navArgs : GameFragmentArgs by navArgs()
 
     private lateinit var timer: CountDownTimer
+    private var defaultValue : Long = 750
     private var score = 0
     private val arrayImages: Array<Array<FrameLayout?>> = Array(3) { arrayOfNulls(3) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        defaultValue=navArgs.levelValue
         viewBinding.timer.text = getString(R.string.time, String.format("%02d", DURATION / INTERVAL))
 
-        timer = object : CountDownTimer(DURATION, navArgs.levelValue) {
+
+
+        timer = object : CountDownTimer(DURATION, defaultValue) {
 
             override fun onTick(millisUntilFinished: Long) {
                 setGameView(millisUntilFinished)
@@ -120,6 +125,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     }
 
     companion object {
+        const val DEFAULT_VALUE : Long = 750
         const val DURATION: Long = 30000
         const val INTERVAL: Long = 1000
         const val HOLE_ROWS = 3
