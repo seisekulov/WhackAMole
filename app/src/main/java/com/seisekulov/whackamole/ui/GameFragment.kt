@@ -26,6 +26,7 @@ class GameFragment() : Fragment(R.layout.fragment_game) {
     private val viewBinding by viewBinding(FragmentGameBinding::bind)
     private val navArgs : GameFragmentArgs by navArgs()
 
+
     private lateinit var timer: CountDownTimer
     private var levelValue : Long = 750
     private var score = 0
