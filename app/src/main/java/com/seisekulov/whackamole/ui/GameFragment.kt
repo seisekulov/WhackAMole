@@ -12,7 +12,6 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -28,19 +27,19 @@ class GameFragment() : Fragment(R.layout.fragment_game) {
     private val navArgs : GameFragmentArgs by navArgs()
 
     private lateinit var timer: CountDownTimer
-    private var defaultValue : Long = 750
+    private var levelValue : Long = 750
     private var score = 0
     private val arrayImages: Array<Array<FrameLayout?>> = Array(3) { arrayOfNulls(3) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        defaultValue=navArgs.levelValue
+        levelValue=navArgs.levelValue
         viewBinding.timer.text = getString(R.string.time, String.format("%02d", DURATION / INTERVAL))
 
 
 
-        timer = object : CountDownTimer(DURATION, defaultValue) {
+        timer = object : CountDownTimer(DURATION, levelValue) {
 
             override fun onTick(millisUntilFinished: Long) {
                 setGameView(millisUntilFinished)
@@ -66,7 +65,7 @@ class GameFragment() : Fragment(R.layout.fragment_game) {
         val randomRow = Random.nextInt(HOLE_ROWS)
         val randomColumn = Random.nextInt(HOLE_COLUMNS)
 
-        viewBinding.timer.text = getString(R.string.time, String.format("%02d", millisUntilFinished / 1000))
+        viewBinding.timer.text = getString(R.string.time, String.format("%02d", millisUntilFinished / INTERVAL))
 
         for (i in 0 until HOLE_ROWS) {
             for (j in 0 until HOLE_COLUMNS) {
@@ -125,7 +124,6 @@ class GameFragment() : Fragment(R.layout.fragment_game) {
     }
 
     companion object {
-        const val DEFAULT_VALUE : Long = 750
         const val DURATION: Long = 30000
         const val INTERVAL: Long = 1000
         const val HOLE_ROWS = 3
